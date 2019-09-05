@@ -35,23 +35,20 @@ class UserController extends Controller
     {
         $qb = User::query();
 
-        if($request->get('parent_id')){
-            $qb->where('parent_id', 'like', '%'.$request->get('parent_id').'%');
-        }
         if($request->get('surname')){
-            $qb->where('surname', 'like', '%'.$request->get('surname').'%');
+            $qb->where('surname', 'like', $request->get('surname').'%');
         }
         if($request->get('name')){
-            $qb->where('name', 'like', '%'.$request->get('name').'%');
+            $qb->where('name', 'like', $request->get('name').'%');
         }
         if($request->get('email')){
-            $qb->where('email', 'like', '%'.$request->get('email').'%');
+            $qb->where('email', 'like', $request->get('email').'%');
         }
         if($request->get('position')){
-            $qb->where('position', 'like', '%'.$request->get('position').'%');
+            $qb->where('position', 'like', $request->get('position').'%');
         }
         if($request->get('employment_date')){
-            $qb->where('employment_date', 'like', '%'.$request->get('employment_date').'%');
+            $qb->where('employment_date', 'like', $request->get('employment_date').'%');
         }
 
         return view('list', [
@@ -89,10 +86,14 @@ class UserController extends Controller
         if($id){
             $user = User::find($id);
         }
-        $fields = ['name', 'surname', 'email', 'position', 'employment_date'];
-        if($request->get('password')){
-            $user->password = Hash::make($request->get('password'));
+        if($request->get('bosses')) {
+            $user->parent_id = $request->get('bosses');
         }
+        $fields = ['parent_id', 'name', 'surname', 'email', 'position', 'employment_date'];
+        if($request->get('password')){
+            $user->password = \Hash::make($request->get('password'));
+        }
+
         $user->fill($request->only($fields));
         $user->save();
         return redirect(route('admin.filter'));

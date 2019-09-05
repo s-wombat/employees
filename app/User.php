@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'parent_id', 'name', 'patronymic', 'surname', 'email', 'position', 'employment_date', 'salary',
+        'parent_id', 'name', 'surname', 'email', 'position', 'employment_date', 'salary',
     ];
 
     /**
@@ -45,5 +45,9 @@ class User extends Authenticatable
     public function parent()
     {
         return $this->belongsTo(self::class, 'parent_id');
+    }
+    public function boss()
+    {
+        return $this->belongsTo('Boss');
     }
 }

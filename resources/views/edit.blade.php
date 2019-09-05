@@ -91,6 +91,24 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label for="boss" class="col-md-4 col-form-label text-md-right">{{ __('Boss') }}</label>
+                                <div class="col-md-6">
+                                        <p> <select size="1" name="bosses">
+                                                <option @if(isset($user) && $user->paretn_id == 0) selected @endif value="0">gen. director</option>
+                                                <option @if(isset($user) && $user->paretn_id == 1) selected @endif value="1">first dir</option>
+                                                <option @if(isset($user) && $user->paretn_id == 2) selected @endif value="2">second dir</option>
+                                                <option @if(isset($user) && $user->paretn_id == 3) selected @endif value="3">third dir</option>
+                                                <option @if(isset($user) && $user->paretn_id == 4) selected @endif value="4">dir</option>
+                                                <option @if(isset($user) && $user->paretn_id == 5) selected @endif value="5">first manager</option>
+                                                <option @if(isset($user) && $user->paretn_id == 6) selected @endif value="6">second manager</option>
+                                                <option @if(isset($user) && $user->paretn_id == 7) selected @endif value="7">third manager</option>
+                                                <option @if(isset($user) && $user->paretn_id == 8) selected @endif value="8">top manager</option>
+                                                <option @if(isset($user) && $user->paretn_id == 9) selected @endif value="9">manager</option>
+                                                <option @if(isset($user) && $user->paretn_id == 10) selected @endif value="10">sheff</option>
+                                            </select></p>
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label for="employment_date" class="col-md-4 col-form-label text-md-right">{{ __('Employment_date') }}</label>
                                 <div class="col-md-6">
                                     <input id="employment_date" type="text" class="form-control{{ $errors->has('employment_date') ? ' is-invalid' : '' }}" name="employment_date" value="@if(isset($user)){{$user->employment_date}}@endif" autofocus>

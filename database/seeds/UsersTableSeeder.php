@@ -23,7 +23,6 @@ class UsersTableSeeder extends Seeder
                 'parent_id' =>$parent_id,
                 'name' => 'user'.$i,
 //                'name' => Str::random(10),
-                'patronymic' => Str::random(15),
                 'surname' => Str::random(10),
                 'email' => Str::random(5) . '@gmail.com',
                 'position' => Str::random(10),

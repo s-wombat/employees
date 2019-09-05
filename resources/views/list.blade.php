@@ -47,7 +47,6 @@
         <div>
             <p>Поиск сотрудников:</p>
             <form class="filter" action="{{ route('admin.filter') }}" method="get">
-                <input type="text" id="search_parent_id" placeholder="boss" name="parent_id" value="{{ request()->get('parent_id') }}">
                 <input type="text" id="search_name" placeholder="name" name="name" value="{{ request()->get('name') }}">
                 <input type="text" id="search_surname" placeholder="surname" name="surname" value="{{ request()->get('surname') }}">
                 <input type="text" id="search_email" placeholder="email" name="email" value="{{ request()->get('email') }}">
