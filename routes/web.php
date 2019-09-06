@@ -31,4 +31,5 @@ Route::prefix('admin')
     Route::get('/create', 'UserController@showCreateForm')->name('create');
     Route::delete('/{id}', 'UserController@remove')->name('remove');
     Route::post('/{id?}', 'UserController@store')->name('store');
+    Route::get('/search', 'UserController@search')->name('search');
 });

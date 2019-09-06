@@ -31,7 +31,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function filter(Request $request, $level = 0)
+    public function filter(Request $request)
     {
         $qb = User::query();
 
@@ -56,6 +56,33 @@ class UserController extends Controller
         ]);
     }
 
+    public function search(Request $request)
+    {
+        $name = $request->name;
+        $email = $request->email;
+        $surname = $request->surname;
+        $position = $request->position;
+        $employment_date = $request->employment_date;
+
+        $users = User::query();
+        if($name){
+            $users = $users->where('name', 'like', $name.'%');
+        }
+        if($surname){
+            $users = $users->where('surname', 'like', $surname.'%');
+        }
+        if($email){
+            $users = $users->where('email', 'like', $email.'%');
+        }
+        if($position){
+            $users = $users->where('position', 'like', $position.'%');
+        }
+        if($employment_date){
+            $users = $users->where('employment_date', 'like', $employment_date.'%');
+        }
+        return response()->json($users->get()->toArray());
+    }
+
     public function showCreateForm()
     {
         return view('edit');
@@ -71,6 +98,7 @@ class UserController extends Controller
             'user' => $user,
         ]);
     }
+
     public function remove($id)
     {
         $user = User::find($id);
@@ -80,6 +108,7 @@ class UserController extends Controller
         $user->delete();
         return redirect(route('admin.filter'));
     }
+
     public function store(Request $request, $id = null)
     {
         $user = new User();
