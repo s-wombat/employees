@@ -20,6 +20,7 @@
     <div class="alert alert-secondary" role="alert">
         Список пользователей --------------------- <a href="{{ url('/') }}">Главная страница</a>
     </div>
+
     <div class="row">
         <div class="col-md-6">
             <form action="{{route('admin.sort')}}" method="get">
@@ -102,7 +103,9 @@
                     </form>
                 </td>
             </tr>
+            {{--<img src="{{$user->small}}" />--}}
         @endforeach
+{{--            {{ dd($users->small) }}--}}
         </tbody>
     </table>
 {{ $users->appends(request()->except('page'))->links() }}

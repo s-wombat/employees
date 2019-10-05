@@ -48,6 +48,26 @@ class User extends Authenticatable
     }
     public function boss()
     {
-        return $this->belongsTo('Boss');
+        return $this->belongsTo('App\Boss');
+    }
+    public function image()
+    {
+        return $this->hasOne('App\Image');
+    }
+    public function getSmallAttribute()
+    {
+        $image_path = Image::where('title', '=', 'small')
+            ->where('user_id', '=', $this->id)
+            ->select('images.image_path')
+            ->get();
+        return url('upload/products/' . $this->id . '/' . $image_path->image_path);
+    }
+    public function getMiddleAttribute()
+    {
+        $image_path = Image::where('title', '=', 'middle')
+            ->where('user_id', '=', $this->id)
+            ->select('images.image_path')
+            ->get();
+        return url('upload/products/' . $this->id . '/' . $image_path->image_path);
     }
 }

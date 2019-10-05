@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Image;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image as ImageInt;
 
 class UserController extends Controller
 {
@@ -125,6 +127,26 @@ class UserController extends Controller
 
         $user->fill($request->only($fields));
         $user->save();
+
+        if($request->file('photo')){
+            $path = public_path().'\storage\uploads\users\\'.$user->id.'//';
+            $photo = $request->file('photo');
+            if(!file_exists($path)){
+                mkdir($path, 0777, true);
+            }
+            $photoname = $request->file('photo')->getClientOriginalName();
+            if(!$photoname){
+                $img = ImageInt::make($photo);
+                $img->save($path . 'origin_' . $photoname);
+                $img->resize(100, 100)->save($path . 'small_' . $photoname);
+                $img->resize(300, 300)->save($path . 'middle_' . $photoname);
+                Image::create(['title' => 'origin', 'image_path' => 'origin_' . $photoname, 'user_id' => $user->id]);
+                Image::create(['title' => 'small', 'image_path' => 'small_' . $photoname, 'user_id' => $user->id]);
+                Image::create(['title' => 'middle', 'image_path' => 'middle_' . $photoname, 'user_id' => $user->id]);
+            }
+        }
+
         return redirect(route('admin.filter'));
     }
+
 }

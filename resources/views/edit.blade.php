@@ -26,7 +26,7 @@
                         </h4>
                     </div>
                     <div class="card-body">
-                        <form method="post"
+                        <form method="post" enctype="multipart/form-data"
                               @if(isset($user))
                               action="{{route('admin.store',['id'=>$user->id])}}"
                               @else
@@ -35,17 +35,6 @@
                         >
                             {{ csrf_field() }}
 
-                            {{--<div class="form-group row">--}}
-                                {{--<label for="boss" class="col-md-4 col-form-label text-md-right">{{ __('Boss') }}</label>--}}
-                                {{--<div class="col-md-6">--}}
-                                    {{--<input id="boss" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="@if(isset($user)){{$user->name}}@endif" autofocus>--}}
-                                    {{--@if ($errors->has('name'))--}}
-                                        {{--<span class="invalid-feedback" role="alert">--}}
-                                        {{--<strong>{{ $errors->first('name') }}</strong>--}}
-                                    {{--</span>--}}
-                                    {{--@endif--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
                             <div class="form-group row">
                                 <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
                                 <div class="col-md-6">
@@ -128,6 +117,12 @@
                                         <strong>{{ $errors->first('password') }}</strong>
                                     </span>
                                     @endif
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="img" class="col-md-4 col-form-label text-md-right">{{ __('Image') }}</label>
+                                <div class="col-md-6">
+                                    <input id="img" type="file" class="form-control" name="photo" >
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
